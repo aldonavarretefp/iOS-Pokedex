@@ -1,19 +1,20 @@
 # `PokeDex` - Pokedex App in SwiftUI
-
+- [Demo](#demo)
 - [Overview](#overview)
 - [Pokedex](#pokedexapp)
 - [Unit Testing](#unit-testing)
    - [Test Cases](#test-cases)
 - [Error handling](#error-handling)
 
-## Overview
-`PokeDexView` is the primary view in a SwiftUI-based iOS app designed to function as a Pokedex. This app utilizes the MVVM (Model-View-ViewModel) architecture pattern, separating the user interface (View) from the business logic and data handling (ViewModel).
-
 # Demo
 
 <p align="center">
 <img src="./img/screenrecording.gif" alt="Description of GIF">
 </p>
+
+## Overview
+`PokeDexView` is the primary view in a SwiftUI-based iOS app designed to function as a Pokedex. This app utilizes the MVVM (Model-View-ViewModel) architecture pattern, separating the user interface (View) from the business logic and data handling (ViewModel).
+
 
 
 ## Key Components
