@@ -17,7 +17,7 @@ struct PokemonCard: View {
             VStack(alignment: .center) {
                 Text(pokemon.name.capitalized)
                     .font(.headline)
-                    .foregroundStyle(.black)
+                    .foregroundStyle(.primary)
                     .padding()
                     .lineLimit(3)
                 let pokemonImageUrl = pokemon.sprites.other.officialArtwork.frontDefault.absoluteString

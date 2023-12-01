@@ -4,12 +4,17 @@
 - [Pokedex](#pokedexapp)
 - [Unit Testing](#unit-testing)
    - [Test Cases](#test-cases)
-
-
-# `PokeDexApp`
+- [Error handling](#error-handling)
 
 ## Overview
 `PokeDexView` is the primary view in a SwiftUI-based iOS app designed to function as a Pokedex. This app utilizes the MVVM (Model-View-ViewModel) architecture pattern, separating the user interface (View) from the business logic and data handling (ViewModel).
+
+# Demo
+
+<p align="center">
+<img src="./img/screenrecording.gif" alt="Description of GIF">
+</p>
+
 
 ## Key Components
 
@@ -29,7 +34,7 @@
 ### View: `PokedexView`
 - **Layout**: Utilizes `NavigationStack` and `ScrollView` for navigation and scrolling capabilities.
 - **State Management**:
-  - `@StateObject private var vm`: Instance of `ContenViewModel` for data and logic.
+  - `@StateObject private var vm`: Instance of `PokedexViewModel` for data and logic.
   - `@State var timeElapsed`: Tracks the elapsed time.
 - **UI Components**:
   - `HStack` with a timer and a button to fetch Pokémon.
@@ -46,7 +51,7 @@
 ## Architecture: MVVM
 - **Model**: Represented by the Pokémon data structure.
 - **View**: `Pokedex` displays the UI and interacts with the user.
-- **ViewModel**: `ContenViewModel` handles the app's logic and data.
+- **ViewModel**: `PokedexViewModel` handles the app's logic and data.
 
 ## Functionality
 - **Timer Function**: A timer updates every second, and another timer fetches Pokémon data every 30 seconds, resetting the elapsed time.
@@ -143,4 +148,51 @@ The Pokedex app includes a suite of unit tests designed to ensure the reliabilit
       XCTAssertEqual(pokemon.name, "Bulbasaur")
       XCTAssertEqual(pokemon.sprites.other.officialArtwork.frontDefault.absoluteString, "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png")
   }
+
+
+# Error Handling
+
+## Overview
+
+Robust error handling is crucial for the reliability and user experience of the Pokedex app. The app includes a custom error enumeration, `PokeAPIError`, which conforms to the `Error` and `LocalizedError` protocols. This enum handles various errors that can occur during API calls and data processing.
+
+## PokeAPIError Enum
+
+### Error Cases
+
+- **invalidURL**: 
+  - **Description**: Indicates that the provided URL is invalid.
+  - **Error Message**: "The URL provided was invalid."
+- **noData**: 
+  - **Description**: Represents a scenario where no data is returned from the server.
+  - **Error Message**: "No data was received from the server."
+- **networkError(Error)**: 
+  - **Description**: Captures errors related to network requests.
+  - **Error Message**: "Network error: [Underlying Error Description]"
+- **decodingError**: 
+  - **Description**: Occurs when there is a failure in decoding the data.
+  - **Error Message**: "Failed to decode the data into the specified format."
+
+### Implementation
+
+```swift
+enum PokeAPIError: Error, LocalizedError {
+    case invalidURL
+    case noData
+    case networkError(Error)
+    case decodingError
+
+    var errorDescription: String? {
+        switch self {
+        case .invalidURL:
+            return "The URL provided was invalid."
+        case .noData:
+            return "No data was received from the server."
+        case .networkError(let underlyingError):
+            return "Network error: \(underlyingError.localizedDescription)"
+        case .decodingError:
+            return "Failed to decode the data into the specified format."
+        }
+    }
+}
 

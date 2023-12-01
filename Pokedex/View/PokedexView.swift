@@ -90,7 +90,6 @@ struct PokedexView: View {
                 .padding()
             }
             .navigationTitle("Pokedex")
-            
         }
         
     }
